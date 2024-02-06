@@ -35,6 +35,11 @@ const url = 'https://www.shafaetsplanet.com';
     //console.log(htmlSourceCode);
     const $ = cheerio.load(htmlSourceCode);
 
+    //inline css
+    $('[style]').each((index,element)=>{
+        const inlineStyle=$(element).attr('style');
+        console.log('Inline style:'+inlineStyle);
+    })
     //extract css link
     const externalCSSLinks = [];
 
@@ -50,12 +55,16 @@ const url = 'https://www.shafaetsplanet.com';
         inlineCSS.push($(element).text());
     }); 
 
-    //console.log(inlineCSS);
+    for(let i=0;i<inlineCSS.length;i++)
+        console.log("internal css"+inlineCSS[i]);
 
     for(let i=0;i<externalCSSLinks.length;i++){
     const externalCSSContent=await fetchCSS(externalCSSLinks[0]);
     console.log("extrenal css= "+externalCSSContent);
     }
+
+    //actually inline css
+
 })();
 
 
